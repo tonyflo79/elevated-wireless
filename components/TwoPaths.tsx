@@ -15,7 +15,6 @@ const ctaStyle = {
   letterSpacing: "0.22em",
   textTransform: "uppercase" as const,
   marginTop: 8,
-  alignSelf: "flex-start" as const,
 };
 
 export function TwoPaths() {
@@ -25,7 +24,7 @@ export function TwoPaths() {
       data-screen-label="08 Two Paths"
       className="ew-pad-md"
       style={{
-        background: t.navy,
+        background: t.base,
         color: t.paper,
         padding: "140px 56px",
       }}
@@ -48,21 +47,22 @@ export function TwoPaths() {
 
         <Reveal>
           <div
-            className="ew-stack-md"
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 0,
-              borderTop: `1px solid ${t.navyMid}`,
+              display: "flex",
+              justifyContent: "center",
+              borderTop: `1px solid ${t.baseMid}`,
             }}
           >
-            {/* Launch panel — unchanged content */}
+            {/* Sole remaining panel, centred under the heading. */}
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
                 gap: 20,
-                padding: "48px 56px 48px 0",
+                padding: "56px 0",
+                maxWidth: 620,
               }}
             >
               <h3
@@ -77,8 +77,8 @@ export function TwoPaths() {
               >
                 Launch your own brand.
               </h3>
-              <p style={{ fontSize: 16, lineHeight: 1.6, opacity: 0.82, margin: 0, maxWidth: 480 }}>
-                Own an audience that trusts you? Turn it into a wireless revenue stream — branded as
+              <p style={{ fontSize: 17, lineHeight: 1.65, opacity: 0.82, margin: 0 }}>
+                Own an audience that trusts you? Turn it into a wireless revenue stream branded as
                 yours, operated entirely by us, paying you a royalty on every subscriber, every
                 month. Two-week onboarding once terms are signed.
               </p>
@@ -90,39 +90,6 @@ export function TwoPaths() {
               </a>
             </div>
 
-            {/* Investor panel */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 20,
-                padding: "48px 0 48px 56px",
-                borderLeft: `1px solid ${t.navyMid}`,
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: t.sansDisplay,
-                  fontSize: "clamp(32px, 3.6vw, 44px)",
-                  fontWeight: 500,
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1.06,
-                  margin: 0,
-                }}
-              >
-                Back the category.
-              </h3>
-              <p style={{ fontSize: 16, lineHeight: 1.6, opacity: 0.82, margin: 0, maxWidth: 480 }}>
-                Backing the next category of wireless? Request the investor briefing and we&apos;ll
-                walk you through the platform, the pipeline, and the round.
-              </p>
-              <a
-                href="mailto:invest@getelevatedwireless.com?subject=Investor%20Briefing"
-                style={ctaStyle}
-              >
-                Request an investor briefing →
-              </a>
-            </div>
           </div>
         </Reveal>
       </div>

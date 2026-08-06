@@ -15,12 +15,12 @@ const HOME_LANES: DealLane[] = [
   {
     n: "02",
     title: "We operate.",
-    body: "Verizon 5G connectivity, SIM and eSIM activation, billing, support, compliance, carrier reporting — end to end, under your brand. Launch in weeks, not quarters.",
+    body: "Verizon 5G connectivity, SIM and eSIM activation, billing, support, compliance, carrier reporting. End to end, under your brand. Launch in weeks, not quarters.",
   },
   {
     n: "03",
     title: "You earn.",
-    body: "A royalty on every subscriber, every month, from the first subscriber. Recurring, compounding, and yours — a revenue stream that grows every time you do what you already do: reach the people who love you.",
+    body: "A royalty on every subscriber, every month, from the first subscriber. Recurring, compounding, and yours. A revenue stream that grows every time you do what you already do: reach the people who love you.",
   },
 ];
 
@@ -33,7 +33,7 @@ function LaneRow({ lane }: { lane: DealLane }) {
         gridTemplateColumns: "auto 1fr",
         gap: 56,
         padding: "48px 0",
-        borderTop: `1px solid ${t.navyMid}`,
+        borderTop: `1px solid ${t.baseMid}`,
         alignItems: "start",
       }}
     >
@@ -98,7 +98,7 @@ export function Access({
       data-screen-label={screenLabel}
       className="ew-pad-md"
       style={{
-        background: t.navy,
+        background: t.base,
         color: t.paper,
         padding: "160px 56px",
         position: "relative",

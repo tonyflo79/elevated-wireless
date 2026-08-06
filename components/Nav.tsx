@@ -1,18 +1,40 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { tokens as t } from "@/lib/tokens";
 import { Wordmark } from "./primitives";
 
-const LINKS: { label: string; href: string }[] = [
-  { label: "Access", href: "#access" },
-  { label: "Platform", href: "#platform" },
-  { label: "Partner", href: "#partner" },
-  { label: "Team", href: "#team" },
+// Which in-page anchors actually exist on each route. Kept here so a nav link
+// can never point at a section that is not on the current page, which is how
+// ACCESS, PLATFORM and TEAM all silently broke before.
+const ANCHORS: Record<string, string[]> = {
+  "/": ["#top", "#platform", "#partner", "#contact"],
+  "/universities": ["#top", "#partner", "#contact"],
+  "/about": ["#top", "#contact"],
+};
+
+export type NavLink = { label: string; href: string; anchor?: string };
+
+// href is the always-safe cross-page destination. anchor is used instead when
+// that section exists on the page the visitor is already on, so the link
+// scrolls rather than reloading.
+export const LINKS: NavLink[] = [
+  { label: "Home", href: "/", anchor: "#top" },
+  { label: "Platform", href: "/#platform", anchor: "#platform" },
+  { label: "Partner", href: "/#partner", anchor: "#partner" },
+  { label: "About Us", href: "/about/" },
   { label: "Universities", href: "/universities/" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact", anchor: "#contact" },
 ];
 
+export function resolveHref(link: NavLink, pathname: string | null): string {
+  const route = (pathname || "/").replace(/\/+$/, "") || "/";
+  if (link.anchor && (ANCHORS[route] || []).includes(link.anchor)) return link.anchor;
+  return link.href;
+}
+
 export function Nav() {
+  const pathname = usePathname();
   return (
     <nav
       className="ew-nav ew-pad-md"
@@ -22,7 +44,7 @@ export function Nav() {
         justifyContent: "space-between",
         padding: "22px 56px",
         borderBottom: `1px solid ${t.line}`,
-        background: "rgba(245, 246, 248, 0.82)",
+        background: "rgba(255, 255, 255, 0.86)",
         color: t.ink,
         position: "sticky",
         top: 0,
@@ -31,7 +53,7 @@ export function Nav() {
         WebkitBackdropFilter: "blur(10px)",
       }}
     >
-      <a href="#top" aria-label="Elevated Wireless — Home">
+      <a href="#top" aria-label="Elevated Wireless home">
         <Wordmark color={t.ink} withMark markRing={t.ink} size={13} />
       </a>
       <div
@@ -45,7 +67,11 @@ export function Nav() {
         }}
       >
         {LINKS.map((x) => (
-          <a key={x.label} href={x.href} style={{ color: t.ink, opacity: 0.75 }}>
+          <a
+            key={x.label}
+            href={resolveHref(x, pathname)}
+            style={{ color: t.ink, opacity: 0.75 }}
+          >
             {x.label}
           </a>
         ))}

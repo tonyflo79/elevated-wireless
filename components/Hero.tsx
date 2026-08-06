@@ -28,7 +28,7 @@ export function Hero() {
       data-screen-label="02 Hero"
       className="ew-pad-md"
       style={{
-        background: t.navy,
+        background: t.base,
         color: t.paper,
         padding: "104px 56px 120px",
         position: "relative",
@@ -37,54 +37,51 @@ export function Hero() {
       }}
     >
       <Reveal>
-        <div style={{ maxWidth: 1400, display: "flex", flexDirection: "column", gap: 32 }}>
+        {/* Option B: the calculator is the centrepiece. Condensed headline and a
+            single line of copy above it, one CTA below. */}
+        <div style={{ maxWidth: 1240, margin: "0 auto" }}>
+          <div className="ew-hero-center">
+            <div className="ew-hero-copy">
           <h1
             style={{
               fontFamily: t.sansDisplay,
-              fontSize: "clamp(54px, 6.6vw, 100px)",
-              lineHeight: 1.0,
+              fontSize: "clamp(40px, 4.6vw, 68px)",
+              lineHeight: 1.02,
               fontWeight: 500,
               letterSpacing: "-0.03em",
               margin: 0,
-              maxWidth: 1000,
               textWrap: "balance",
             } as CSSProperties}
           >
-            <span style={{ display: "block", textWrap: "balance" } as CSSProperties}>
-              Be the phone company
-            </span>
-            <span style={{ display: "block", textWrap: "balance" } as CSSProperties}>
-              for the people who love you.
-            </span>
+            Be the phone company for the people who love you.
           </h1>
-
-          <div className="ew-hero-split">
-            <div className="ew-hero-copy">
           <p
             style={{
               fontFamily: t.sans,
               fontSize: 18,
               lineHeight: 1.55,
-              maxWidth: 680,
               opacity: 0.82,
               margin: 0,
             }}
           >
-            Elevated turns your audience into a branded wireless service you never have to run —
+            Elevated turns your audience into a branded wireless service you never have to run.
             Verizon 5G, fully operated, your name on it. You promote it. We handle everything else.
             You earn <RoyaltyPhrase />
           </p>
 
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            </div>
+
+            <RevenueCalculator variant="home" className="ew-calc-card" />
+
             <a
               href="#partner"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 10,
-                padding: "16px 26px",
-                background: t.metalBright,
-                color: t.navy,
+                padding: "18px 32px",
+                background: t.accent,
+                color: t.paper,
                 fontFamily: t.mono,
                 fontSize: 12,
                 letterSpacing: "0.22em",
@@ -93,32 +90,10 @@ export function Hero() {
               }}
             >
               Launch Your Brand
-              <span aria-hidden="true" style={{ fontSize: 14, opacity: 0.8, lineHeight: 1, fontWeight: 500 }}>→</span>
+              <span aria-hidden="true" style={{ fontSize: 14, opacity: 0.85, lineHeight: 1, fontWeight: 500 }}>
+                &rarr;
+              </span>
             </a>
-            <a
-              href="mailto:invest@getelevatedwireless.com?subject=Investor%20Briefing"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "16px 26px",
-                background: "transparent",
-                color: t.paper,
-                border: `1px solid ${t.metal}`,
-                fontFamily: t.mono,
-                fontSize: 12,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                fontWeight: 600,
-              }}
-            >
-              Request an investor briefing
-              <span aria-hidden="true" style={{ fontSize: 14, opacity: 0.8, lineHeight: 1, fontWeight: 500 }}>→</span>
-            </a>
-          </div>
-            </div>
-
-            <RevenueCalculator variant="home" className="ew-calc-card" />
           </div>
         </div>
       </Reveal>

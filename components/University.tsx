@@ -16,7 +16,7 @@ export function UniversityHero() {
       data-screen-label="U1 Hero"
       className="ew-pad-md"
       style={{
-        background: t.navy,
+        background: t.base,
         color: t.paper,
         padding: "120px 56px 120px",
         position: "relative",
@@ -34,42 +34,41 @@ export function UniversityHero() {
       </div>
 
       <Reveal>
-        <div style={{ maxWidth: 1400, display: "flex", flexDirection: "column", gap: 32 }}>
-          <h1
-            style={{
-              fontFamily: t.sansDisplay,
-              fontSize: "clamp(54px, 6.6vw, 100px)",
-              lineHeight: 0.98,
-              fontWeight: 500,
-              letterSpacing: "-0.03em",
-              margin: 0,
-              maxWidth: 1240,
-            }}
-          >
-            A new revenue stream
-            <br />
-            for your university.
-          </h1>
-
-          <div className="ew-hero-split">
+        <div style={{ maxWidth: 1240, margin: "0 auto" }}>
+          <div className="ew-hero-center">
             <div className="ew-hero-copy">
+              <h1
+                style={{
+                  fontFamily: t.sansDisplay,
+                  fontSize: "clamp(40px, 4.6vw, 68px)",
+                  lineHeight: 1.02,
+                  fontWeight: 500,
+                  letterSpacing: "-0.03em",
+                  margin: 0,
+                }}
+              >
+                A new revenue stream for your university.
+              </h1>
               <p
                 style={{
                   fontFamily: t.sans,
                   fontSize: 18,
                   lineHeight: 1.55,
-                  maxWidth: 720,
                   opacity: 0.82,
                   margin: 0,
                 }}
               >
-                Elevated turns your fan base into a branded wireless service — your school&apos;s name,
-                the Verizon 5G network, operated entirely by us. Your only job is the one you&apos;re
+                Elevated turns your fan base into a branded wireless service under your school&apos;s name,
+                on the Verizon 5G network, operated entirely by us. Your only job is the one you&apos;re
                 already the best in the world at: reaching your fans. You earn{" "}
                 <span style={{ color: t.metalBright, fontWeight: 700, whiteSpace: "nowrap" }}>
                   a monthly royalty on every subscriber.
                 </span>
               </p>
+
+            </div>
+
+            <RevenueCalculator variant="university" className="ew-calc-card" />
 
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
                 <a
@@ -78,9 +77,9 @@ export function UniversityHero() {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: 10,
-                    padding: "16px 26px",
-                    background: t.metalBright,
-                    color: t.navy,
+                    padding: "18px 32px",
+                    background: t.accent,
+                    color: t.paper,
                     fontFamily: t.mono,
                     fontSize: 12,
                     letterSpacing: "0.22em",
@@ -92,9 +91,6 @@ export function UniversityHero() {
                   <span aria-hidden="true" style={{ fontSize: 14, opacity: 0.8, lineHeight: 1 }}>→</span>
                 </a>
               </div>
-            </div>
-
-            <RevenueCalculator variant="university" className="ew-calc-card" />
           </div>
         </div>
       </Reveal>
@@ -135,9 +131,9 @@ export function UniversityMath() {
         </h2>
 
         <p style={{ fontSize: 20, lineHeight: 1.6, margin: 0, maxWidth: 900 }}>
-          Every fan in your stadium pays a carrier every month — and feels nothing for it. Move a
+          Every fan in your stadium pays a carrier every month and feels nothing for it. Move a
           fraction of that loyalty to a service carrying your name and it becomes recurring revenue
-          your program controls — growing with every subscriber, season after season. No inventory,
+          your program controls, growing with every subscriber, season after season. No inventory,
           no capital, no new staff.
         </p>
       </div>
@@ -186,7 +182,7 @@ export function UniversityFit() {
             </h2>
           </div>
           <p style={{ fontSize: 18, lineHeight: 1.65, opacity: 0.85, margin: 0, paddingTop: 8 }}>
-            We work within your existing multimedia-rights and collective relationships — not
+            We work within your existing multimedia-rights and collective relationships, not
             around them. Whether your properties are managed in-house or by a rights partner, the
             wireless program plugs into the channels and agreements already in place, and everyone
             in the value chain participates.
@@ -207,7 +203,7 @@ export function UniversityLaunch() {
       data-screen-label="U6 Launch"
       className="ew-pad-md"
       style={{
-        background: t.navy,
+        background: t.base,
         color: t.paper,
         padding: "140px 56px",
       }}
@@ -242,7 +238,7 @@ export function UniversityLaunch() {
             }}
           >
             <p style={{ fontSize: 16, lineHeight: 1.6, opacity: 0.82, margin: 0, maxWidth: 520 }}>
-              A branded wireless revenue stream for your program — your name on it, operated
+              A branded wireless revenue stream for your program, with your name on it, operated
               entirely by us, paying you a royalty on every subscriber, every month. Zero
               operational lift on campus.
             </p>

@@ -2,20 +2,38 @@
 
 import { tokens as t } from "@/lib/tokens";
 import { Label, Wordmark } from "./primitives";
+import { LINKS, resolveHref, type NavLink } from "./Nav";
+import { usePathname } from "next/navigation";
 
-const COLS = [
-  { h: "Company", items: ["Access", "Platform", "Partner", "Team", "Contact"] },
-  { h: "For", items: ["Brands", "Investors", "Press"] },
+type FooterItem = NavLink;
+
+const COLS: { h: string; items: FooterItem[] }[] = [
+  // Mirrors the nav exactly, so the two can never drift apart.
+  { h: "Company", items: LINKS },
+  {
+    h: "For",
+    items: [
+      { label: "Brands", href: "mailto:partnerships@getelevatedwireless.com?subject=Brand%20Enquiry" },
+      { label: "Press", href: "mailto:press@getelevatedwireless.com?subject=Press%20Enquiry" },
+    ],
+  },
   {
     h: "Contact",
     items: [
-      "partnerships@getelevatedwireless.com",
-      "invest@getelevatedwireless.com",
+      {
+        label: "partnerships@getelevatedwireless.com",
+        href: "mailto:partnerships@getelevatedwireless.com",
+      },
+      {
+        label: "invest@getelevatedwireless.com",
+        href: "mailto:invest@getelevatedwireless.com",
+      },
     ],
   },
 ];
 
 export function Footer() {
+  const pathname = usePathname();
   return (
     <footer
       id="contact"
@@ -58,9 +76,14 @@ export function Footer() {
                 }}
               >
                 {col.items.map((x) => (
-                  <span key={x} style={{ opacity: 0.78 }}>
-                    {x}
-                  </span>
+                  <a
+                    key={x.label}
+                    href={resolveHref(x, pathname)}
+                    className="ew-footer-link"
+                    style={{ opacity: 0.78 }}
+                  >
+                    {x.label}
+                  </a>
                 ))}
               </div>
             </div>
@@ -85,10 +108,8 @@ export function Footer() {
           <div style={{ fontStyle: "italic", opacity: 0.85 }}>
             Cellular service provided on the Verizon 5G network.
           </div>
-          <div style={{ display: "flex", gap: 18 }}>
-            <span>Privacy</span>
-            <span>Terms</span>
-          </div>
+          {/* Privacy and Terms removed until real documents exist. A link that
+              goes nowhere implies a policy that does not. See D19. */}
         </div>
       </div>
     </footer>

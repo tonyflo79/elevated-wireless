@@ -9,58 +9,63 @@ import { DuotonePhoto, Reveal } from "./primitives";
 // (Reach Mobile intentionally omitted from the public topology.)
 // ————————————————————————————————————————————————
 function NetworkDiagram() {
-  const W = 560;
-  const H = 420;
+  // Wide canvas: this runs the full width of the section rather than sitting in
+  // a half-row, so the geometry is spread out and the labels are set larger.
+  const W = 1200;
+  const H = 460;
   const cols = [
-    { x: 100, label: "Verizon 5G", sub: "Network", r: 28, hub: false },
-    { x: 260, label: "Elevated", sub: "Operating co", r: 36, hub: true },
-    { x: 400, label: "Brand carrier", sub: "White-label", r: 22, hub: false },
-    { x: 510, label: "Members", sub: "", r: 10, hub: false },
+    { x: 150, label: "Verizon 5G", sub: "Network", r: 34, hub: false },
+    { x: 450, label: "Elevated", sub: "Operating co", r: 46, hub: true },
+    { x: 790, label: "Brand carrier", sub: "White-label", r: 28, hub: false },
+    { x: 1050, label: "Members", sub: "", r: 10, hub: false },
   ];
   const HUB_IDX = 1;
   const BRAND_IDX = 2;
   const MEMBER_IDX = 3;
   const cy = H / 2;
-  const brandYs = [cy - 80, cy, cy + 80];
+  const brandYs = [cy - 125, cy, cy + 125];
   const memberDots = (bx: number, by: number) => {
     const pts: { x: number; y: number }[] = [];
     for (let i = 0; i < 5; i++) {
       const ang = -Math.PI / 3 + ((Math.PI * 2) / 3) * (i / 4);
-      pts.push({ x: bx + Math.cos(ang) * 50, y: by + Math.sin(ang) * 28 });
+      pts.push({ x: bx + Math.cos(ang) * 95, y: by + Math.sin(ang) * 46 });
     }
     return pts;
   };
   return (
     <div
       style={{
-        height: 420,
         border: `1px solid ${t.line}`,
         background: t.paper,
         position: "relative",
         overflow: "hidden",
-        padding: 24,
+        padding: 32,
         boxSizing: "border-box",
       }}
     >
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={{ display: "block" }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        width="100%"
+        style={{ display: "block", height: "auto" }}
+      >
         <defs>
-          <pattern id="grid6a" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke={t.line} strokeWidth="0.4" opacity="0.5" />
+          <pattern id="grid6a" width="24" height="24" patternUnits="userSpaceOnUse">
+            <path d="M 24 0 L 0 0 0 24" fill="none" stroke={t.line} strokeWidth="0.5" opacity="0.5" />
           </pattern>
         </defs>
         <rect width={W} height={H} fill="url(#grid6a)" />
 
-        {/* Verizon → Elevated */}
+        {/* Verizon to Elevated */}
         <line
           x1={cols[0].x + cols[0].r}
           y1={cy}
           x2={cols[HUB_IDX].x - cols[HUB_IDX].r}
           y2={cy}
           stroke={t.ink}
-          strokeWidth="1"
+          strokeWidth="1.25"
         />
 
-        {/* Elevated → 3 brand carriers */}
+        {/* Elevated to 3 brand carriers */}
         {brandYs.map((by, i) => (
           <line
             key={`eb${i}`}
@@ -69,12 +74,12 @@ function NetworkDiagram() {
             x2={cols[BRAND_IDX].x - cols[BRAND_IDX].r}
             y2={by}
             stroke={t.ink}
-            strokeWidth="1"
+            strokeWidth="1.25"
             opacity="0.85"
           />
         ))}
 
-        {/* Brands → members */}
+        {/* Brands to members */}
         {brandYs.map((by, i) => {
           const pts = memberDots(cols[MEMBER_IDX].x, by);
           return (
@@ -87,13 +92,13 @@ function NetworkDiagram() {
                   x2={p.x}
                   y2={p.y}
                   stroke={t.metal}
-                  strokeWidth="0.6"
-                  strokeDasharray="2 3"
+                  strokeWidth="0.8"
+                  strokeDasharray="3 4"
                   opacity="0.7"
                 />
               ))}
               {pts.map((p, j) => (
-                <circle key={`m${j}`} cx={p.x} cy={p.y} r="2.2" fill={t.ink} opacity="0.75" />
+                <circle key={`m${j}`} cx={p.x} cy={p.y} r="3.4" fill={t.ink} opacity="0.75" />
               ))}
             </g>
           );
@@ -104,8 +109,8 @@ function NetworkDiagram() {
           if (i === BRAND_IDX) {
             return brandYs.map((by, j) => (
               <g key={`brand-${j}`}>
-                <circle cx={c.x} cy={by} r={c.r} fill={t.paper} stroke={t.ink} strokeWidth="1" />
-                <circle cx={c.x} cy={by} r="5" fill={t.ink} opacity="0.9" />
+                <circle cx={c.x} cy={by} r={c.r} fill={t.paper} stroke={t.ink} strokeWidth="1.25" />
+                <circle cx={c.x} cy={by} r="6.5" fill={t.ink} opacity="0.9" />
               </g>
             ));
           }
@@ -114,41 +119,25 @@ function NetworkDiagram() {
             <g key={c.label}>
               {c.hub && (
                 <>
-                  <circle
-                    cx={c.x}
-                    cy={cy}
-                    r={c.r + 10}
-                    fill="none"
-                    stroke={t.metal}
-                    strokeWidth="0.5"
-                    opacity="0.4"
-                  />
-                  <circle
-                    cx={c.x}
-                    cy={cy}
-                    r={c.r + 18}
-                    fill="none"
-                    stroke={t.metal}
-                    strokeWidth="0.5"
-                    opacity="0.2"
-                  />
+                  <circle cx={c.x} cy={cy} r={c.r + 13} fill="none" stroke={t.metal} strokeWidth="0.6" opacity="0.4" />
+                  <circle cx={c.x} cy={cy} r={c.r + 23} fill="none" stroke={t.metal} strokeWidth="0.6" opacity="0.2" />
                 </>
               )}
               <circle
                 cx={c.x}
                 cy={cy}
                 r={c.r}
-                fill={c.hub ? t.navy : t.paper}
-                stroke={c.hub ? t.navy : t.ink}
-                strokeWidth="1.25"
+                fill={c.hub ? t.base : t.paper}
+                stroke={c.hub ? t.base : t.ink}
+                strokeWidth="1.5"
               />
               {c.hub && (
                 <text
                   x={c.x}
-                  y={cy + 4}
+                  y={cy + 8}
                   textAnchor="middle"
-                  fill={t.metalBright}
-                  style={{ fontFamily: "serif", fontSize: 16, fontStyle: "italic", fontWeight: 500 }}
+                  fill={t.paper}
+                  style={{ fontFamily: "serif", fontSize: 26, fontStyle: "italic", fontWeight: 500 }}
                 >
                   E
                 </text>
@@ -160,7 +149,7 @@ function NetworkDiagram() {
 
         {/* Labels */}
         {cols.map((c, i) => {
-          const y = i === BRAND_IDX ? brandYs[0] - c.r - 14 : cy - c.r - 14;
+          const y = i === BRAND_IDX ? brandYs[0] - c.r - 24 : cy - c.r - 24;
           return (
             <g key={`lbl-${i}`}>
               <text
@@ -168,19 +157,19 @@ function NetworkDiagram() {
                 y={y}
                 textAnchor="middle"
                 fill={t.ink}
-                style={{ fontFamily: "inherit", fontSize: 11, fontWeight: 600, letterSpacing: "0.02em" }}
+                style={{ fontFamily: "inherit", fontSize: 17, fontWeight: 600, letterSpacing: "0.01em" }}
               >
                 {c.label}
               </text>
               {c.sub && (
                 <text
                   x={c.x}
-                  y={y + 12}
+                  y={y + 18}
                   textAnchor="middle"
                   fill={t.metal}
                   style={{
                     fontFamily: t.mono,
-                    fontSize: 8.5,
+                    fontSize: 11.5,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
                   }}
@@ -195,18 +184,18 @@ function NetworkDiagram() {
         {/* Brand-layer bracket */}
         <g opacity="0.6">
           <path
-            d={`M ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 8} ${brandYs[0]} L ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 12} ${brandYs[0]} L ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 12} ${brandYs[2]} L ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 8} ${brandYs[2]}`}
+            d={`M ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 12} ${brandYs[0]} L ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 18} ${brandYs[0]} L ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 18} ${brandYs[2]} L ${cols[BRAND_IDX].x + cols[BRAND_IDX].r + 12} ${brandYs[2]}`}
             fill="none"
             stroke={t.metal}
-            strokeWidth="0.7"
+            strokeWidth="0.9"
           />
           <text
-            x={cols[BRAND_IDX].x + cols[BRAND_IDX].r + 18}
-            y={cy + 3}
+            x={cols[BRAND_IDX].x + cols[BRAND_IDX].r + 26}
+            y={cy + 4}
             fill={t.metal}
             style={{
               fontFamily: t.mono,
-              fontSize: 8,
+              fontSize: 11,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
             }}
@@ -220,159 +209,6 @@ function NetworkDiagram() {
 }
 
 // ————————————————————————————————————————————————
-// 6b — DataPyramid
-// Prescriptive → Predictive → Diagnostic → Descriptive
-// ————————————————————————————————————————————————
-function DataPyramid() {
-  const W = 560;
-  const H = 420;
-  const cx = W / 2;
-  const pyTop = 70;
-  const pyBottom = 340;
-  const pyHalfBase = 200;
-  const tiers = [
-    { label: "Prescriptive", sub: "What should we do?", note: "Churn saves · capacity plans" },
-    { label: "Predictive", sub: "What will happen?", note: "Forecasts · cohort intent" },
-    { label: "Diagnostic", sub: "Why did it happen?", note: "Root cause · attribution" },
-    { label: "Descriptive", sub: "What happened?", note: "Activation · usage · churn" },
-  ];
-  const tierH = (pyBottom - pyTop) / tiers.length;
-  const halfAt = (y: number) => ((y - pyTop) / (pyBottom - pyTop)) * pyHalfBase;
-
-  return (
-    <div
-      style={{
-        height: 420,
-        border: `1px solid ${t.line}`,
-        background: t.paper,
-        position: "relative",
-        overflow: "hidden",
-        padding: 24,
-        boxSizing: "border-box",
-      }}
-    >
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={{ display: "block" }}>
-        <defs>
-          <pattern id="grid6b" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke={t.line} strokeWidth="0.4" opacity="0.5" />
-          </pattern>
-        </defs>
-        <rect width={W} height={H} fill="url(#grid6b)" />
-
-        {tiers.map((tier, i) => {
-          const yTop = pyTop + i * tierH;
-          const yBot = yTop + tierH;
-          const hTop = halfAt(yTop);
-          const hBot = halfAt(yBot);
-          const fillOpacity = 0.06 + i * 0.07;
-          return (
-            <g key={tier.label}>
-              <polygon
-                points={`${cx - hTop},${yTop} ${cx + hTop},${yTop} ${cx + hBot},${yBot} ${cx - hBot},${yBot}`}
-                fill={t.navy}
-                fillOpacity={fillOpacity}
-                stroke={t.ink}
-                strokeWidth="1"
-              />
-              <text
-                x={cx}
-                y={yTop + tierH / 2 - 2}
-                textAnchor="middle"
-                fill={t.ink}
-                style={{
-                  fontFamily: "inherit",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  letterSpacing: "-0.005em",
-                }}
-              >
-                {tier.label}
-              </text>
-              <text
-                x={cx}
-                y={yTop + tierH / 2 + 13}
-                textAnchor="middle"
-                fill={t.metal}
-                style={{ fontFamily: "inherit", fontSize: 10, fontStyle: "italic" }}
-              >
-                {tier.sub}
-              </text>
-            </g>
-          );
-        })}
-
-        {tiers.map((tier, i) => {
-          const yMid = pyTop + i * tierH + tierH / 2;
-          const xLabel = cx + pyHalfBase + 24;
-          return (
-            <g key={`ann-${i}`} opacity="0.85">
-              <line
-                x1={cx + halfAt(yMid) + 4}
-                y1={yMid}
-                x2={xLabel - 6}
-                y2={yMid}
-                stroke={t.metal}
-                strokeWidth="0.6"
-                strokeDasharray="2 3"
-              />
-              <text
-                x={xLabel}
-                y={yMid + 3}
-                fill={t.metal}
-                style={{
-                  fontFamily: t.mono,
-                  fontSize: 8.5,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                }}
-              >
-                {tier.note}
-              </text>
-            </g>
-          );
-        })}
-
-        <g opacity="0.7">
-          <line x1="28" y1={pyBottom} x2="28" y2={pyTop + 6} stroke={t.ink} strokeWidth="0.8" />
-          <polygon points={`28,${pyTop} 25,${pyTop + 8} 31,${pyTop + 8}`} fill={t.ink} />
-          <text
-            x="16"
-            y={pyTop + (pyBottom - pyTop) / 2}
-            fill={t.metal}
-            transform={`rotate(-90 16 ${pyTop + (pyBottom - pyTop) / 2})`}
-            textAnchor="middle"
-            style={{
-              fontFamily: t.mono,
-              fontSize: 9,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-            }}
-          >
-            Maturity →
-          </text>
-        </g>
-
-        <text
-          x={cx}
-          y={pyBottom + 24}
-          textAnchor="middle"
-          fill={t.ink}
-          opacity="0.65"
-          style={{
-            fontFamily: t.mono,
-            fontSize: 9,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-          }}
-        >
-          Every layer of the business
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-// ————————————————————————————————————————————————
 // Platform section
 // ————————————————————————————————————————————————
 type Row = {
@@ -380,7 +216,7 @@ type Row = {
   title: string;
   body: string;
   bullets: string[];
-  diagram?: "network" | "pyramid";
+  diagram?: "network";
   img?: string;
   src?: string;
 };
@@ -389,7 +225,7 @@ const ROWS: Row[] = [
   {
     label: "6a · Network + Operations",
     title: "Verizon 5G, end-to-end.",
-    body: "Connectivity via our MVNO partnership. SIM provisioning, device activation, billing, customer support, regulatory compliance, carrier reporting — all handled.",
+    body: "Connectivity via our MVNO partnership. SIM provisioning, device activation, billing, customer support, regulatory compliance, carrier reporting. All handled.",
     bullets: [
       "Verizon 5G nationwide (same network, different experience)",
       "MVNO operations end-to-end",
@@ -408,17 +244,16 @@ const ROWS: Row[] = [
       "Churn prediction, revenue forecasting, capacity planning",
       "Partner dashboards and A/B testing infrastructure",
     ],
-    diagram: "pyramid",
   },
   {
     label: "6c · Marketplace",
     title: "And the extras that make members stay",
-    body: "On top of the service itself, every brand can switch on a curated marketplace of partner perks, experiences, and expert access for its subscribers. It's not the pitch — it's the retention layer. Your members get more than a signal; you get subscribers who stay.",
+    body: "On top of the service itself, every brand can switch on a curated marketplace of partner perks, experiences, and expert access for its subscribers. It's not the pitch. It's the retention layer. Your members get more than a signal; you get subscribers who stay.",
     bullets: [
       "Curated partner perks, experiences, and expert access",
-      "Category-locked per partner — never generic rewards",
-      "Audience stays yours — no cross-carrier sharing, no list commingling",
-      "Switched on per brand — a retention layer, not the pitch",
+      "Category-locked per partner, never generic rewards",
+      "Audience stays yours, no cross-carrier sharing or list commingling",
+      "Switched on per brand, a retention layer rather than the pitch",
     ],
     img: "editorial · member perks",
     src: "/img/platform-6c.jpg",
@@ -485,11 +320,10 @@ function RowContent({ r }: { r: Row }) {
 
 function RowVisual({ r }: { r: Row }) {
   if (r.diagram === "network") return <NetworkDiagram />;
-  if (r.diagram === "pyramid") return <DataPyramid />;
   return (
     <DuotonePhoto
       ratio="4 / 3"
-      shadow={t.navy}
+      shadow={t.base}
       highlight={t.paper}
       midtone={t.metal}
       src={r.src!}
@@ -525,36 +359,58 @@ export function Platform() {
               margin: 0,
             }}
           >
-            Everything a brand needs to become a carrier — and nothing they shouldn&apos;t have to touch.
+            Everything a brand needs to become a carrier, and nothing they shouldn&apos;t have to touch.
           </h2>
         </div>
 
         {ROWS.map((r, i) => {
-          const flip = i % 2 !== 0;
+          // 6a stacks so the diagram can run the full width of the section.
+          // 6b has no visual at all now, so it is copy on a held width rather
+          // than one column stranded beside empty space.
+          const stacked = r.diagram === "network";
+          const copyOnly = !r.diagram && !r.src;
+          const rowFrame = {
+            padding: "60px 0",
+            borderTop: `1px solid ${t.line}`,
+          };
+
+          if (stacked) {
+            return (
+              <Reveal key={r.label} delay={i * 80}>
+                <div style={rowFrame}>
+                  <div style={{ maxWidth: 900, marginBottom: 48 }}>
+                    <RowContent r={r} />
+                  </div>
+                  <RowVisual r={r} />
+                </div>
+              </Reveal>
+            );
+          }
+
+          if (copyOnly) {
+            return (
+              <Reveal key={r.label} delay={i * 80}>
+                <div style={{ ...rowFrame, maxWidth: 900 }}>
+                  <RowContent r={r} />
+                </div>
+              </Reveal>
+            );
+          }
+
           return (
             <Reveal key={r.label} delay={i * 80}>
               <div
                 className="ew-stack-md"
                 style={{
+                  ...rowFrame,
                   display: "grid",
-                  gridTemplateColumns: flip ? "1fr 1.1fr" : "1.1fr 1fr",
+                  gridTemplateColumns: "1.1fr 1fr",
                   gap: 64,
-                  padding: "60px 0",
-                  borderTop: `1px solid ${t.line}`,
                   alignItems: "center",
                 }}
               >
-                {flip ? (
-                  <>
-                    <RowVisual r={r} />
-                    <RowContent r={r} />
-                  </>
-                ) : (
-                  <>
-                    <RowContent r={r} />
-                    <RowVisual r={r} />
-                  </>
-                )}
+                <RowContent r={r} />
+                <RowVisual r={r} />
               </div>
             </Reveal>
           );

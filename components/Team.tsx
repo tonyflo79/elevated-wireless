@@ -11,36 +11,29 @@ const TEAM: Person[] = [
     n: "Joe DeMaria",
     r: "Founder & CEO",
     img: "/img/team/joe.jpg",
-    hero: "Seasoned Tech Founder.",
-    c: "13 years leading go-to-market and content strategy for universities, corporate learning, and influencer brands. Pioneer in e-learning, serial operator, builder of high-performing teams.",
+    hero: "The Visionary.",
+    c: "15 years leading go-to-market and content strategy for universities, corporate learning, and influencer brands. Pioneer in e-learning, serial operator, builder of high-performing teams.",
   },
   {
     n: "Roger Love",
     r: "Co-Founder",
     img: "/img/team/roger.jpg",
-    hero: "Voice Coach to the Stars.",
+    hero: "The Connector.",
     c: "One of the world's foremost authorities on voice. Author of four best-selling books. Clients include Reese Witherspoon, Zoe Saldana, Bradley Cooper, Anthony Robbins, Selena Gomez and more.",
   },
   {
     n: "Betsy Perigo",
     r: "Co-Founder · Chief of Staff",
     img: "/img/team/betsy.jpg",
-    hero: "The operator behind the operators.",
-    c: "Uniquely suited to the demanding, ever-changing needs of early-stage organizations. Previously ran operations alongside both Roger and Joe — defined internal culture, performance standards, and process.",
+    hero: "The Integrator.",
+    c: "Uniquely suited to the demanding, ever-changing needs of early-stage organizations. Previously ran operations alongside both Roger and Joe, defining internal culture, performance standards, and process.",
   },
   {
     n: "Anthony Flores",
     r: "Chief Marketing Officer",
     img: "/img/team/anthony.jpg",
-    hero: "Two decades. Nearly a billion in sales.",
-    c: "Direct-response copywriter and marketer. Worked with the who's-who in marketing from day one, now one of the leading innovators in AI marketing systems.",
-  },
-  {
-    n: "Ben Roth",
-    r: "Director of Data Operations",
-    img: "/img/team/ben.jpg",
-    hero: "Consulting firms to Fortune 100.",
-    c: "Data architect and engineer. Built the full data pyramid — descriptive through prescriptive — underwriting every operator decision on the platform.",
+    hero: "The Amplifier.",
+    c: "Two decades. Nearly a billion in sales. Direct-response copywriter and marketer. Worked with the who's-who in marketing from day one, now one of the leading innovators in AI marketing systems.",
   },
 ];
 
@@ -53,25 +46,11 @@ const ADVISORS: Person[] = [
     c: "Founder, The Abraham Group. Advised 10,000+ businesses across 1,000+ industries. The most-quoted strategic marketer alive.",
   },
   {
-    n: "Rich Schefren",
-    r: "Strategic Advisor",
-    img: "/img/team/rich-schefren.jpg",
-    hero: "$15B+ in client sales.",
-    c: "Internet-marketing pioneer who coached the first generation of online operators. Launched the first viral marketing report, built the first automated webinar (2009), and a long list of industry firsts.",
-  },
-  {
-    n: "Harjot Saluja",
-    r: "CEO, Reach Mobile",
-    img: "/img/team/harjot.jpg",
-    hero: "The MVNO partnership.",
-    c: "15+ years in mobile. Holds a patent for wireless network inter-technology handoffs. Strategic advisor to Wi-Charge. Reach Mobile is the carrier layer beneath Elevated.",
-  },
-  {
     n: "Jim Poole",
     r: "Founder & CEO, NuCalm",
     img: "/img/team/jim-poole.jpg",
     hero: "The world's only patented neuroscience tech.",
-    c: "CEO and Founder of NuCalm — patented neuroscience technology, validated by Harvard and NASA.",
+    c: "CEO and Founder of NuCalm, a patented neuroscience technology validated by Harvard and NASA.",
   },
   {
     n: "Rich Goldstein",
@@ -131,7 +110,7 @@ export function Team() {
             </h2>
           </div>
           <p style={{ fontSize: 17, lineHeight: 1.6, opacity: 0.75, paddingBottom: 10, margin: 0 }}>
-            Telecom, brand, product, data, and marketing — the team behind the platform and the
+            Telecom, brand, product, data, and marketing. The team behind the platform and the
             brands that run on it.
           </p>
         </div>
@@ -142,13 +121,13 @@ export function Team() {
             className="ew-stack-md"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              columnGap: 36,
+              gridTemplateColumns: "repeat(4, 1fr)",
+              columnGap: 28,
               rowGap: 72,
             }}
           >
             {TEAM.map((p, i) => (
-              <Reveal key={p.n} delay={(i % 3) * 80}>
+              <Reveal key={p.n} delay={(i % 4) * 80}>
                 <figure style={{ margin: 0 }}>
                   <div style={{ position: "relative", overflow: "hidden", marginBottom: 22 }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -188,66 +167,6 @@ export function Team() {
             ))}
           </div>
 
-          {/* Operating partners strip */}
-          <div
-            className="ew-stack-md"
-            style={{
-              marginTop: 72,
-              paddingTop: 32,
-              borderTop: `1px solid ${t.line}`,
-              display: "grid",
-              gridTemplateColumns: "1fr 3fr",
-              gap: 48,
-              alignItems: "start",
-            }}
-          >
-            <Label style={{ opacity: 0.55 }}>Operating Partners</Label>
-            <div
-              style={{
-                display: "flex",
-                gap: 48,
-                flexWrap: "wrap",
-                fontSize: 14.5,
-                lineHeight: 1.6,
-                opacity: 0.82,
-              }}
-            >
-              <div style={{ flex: "1 1 280px" }}>
-                <div
-                  style={{
-                    fontFamily: t.sansDisplay,
-                    fontSize: 18,
-                    fontWeight: 500,
-                    letterSpacing: "-0.01em",
-                    marginBottom: 6,
-                  }}
-                >
-                  O&apos;Connell Digital
-                </div>
-                <div style={{ fontSize: 13.5, opacity: 0.75 }}>
-                  Paid media partner. Performance operators with the media-buying depth to scale
-                  member acquisition.
-                </div>
-              </div>
-              <div style={{ flex: "1 1 280px" }}>
-                <div
-                  style={{
-                    fontFamily: t.sansDisplay,
-                    fontSize: 18,
-                    fontWeight: 500,
-                    letterSpacing: "-0.01em",
-                    marginBottom: 6,
-                  }}
-                >
-                  Reach Mobile
-                </div>
-                <div style={{ fontSize: 13.5, opacity: 0.75 }}>
-                  MVNO carrier partner on Verizon 5G. SIM provisioning, activation, billing,
-                  compliance.
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Advisors — 5-col portrait strip */}
@@ -266,15 +185,15 @@ export function Team() {
             className="ew-stack-md"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(5, 1fr)",
-              columnGap: 20,
+              gridTemplateColumns: "repeat(3, 1fr)",
+              columnGap: 32,
               rowGap: 48,
               borderTop: `1px solid ${t.line}`,
               paddingTop: 40,
             }}
           >
             {ADVISORS.map((a, i) => (
-              <Reveal key={a.n} delay={(i % 5) * 60}>
+              <Reveal key={a.n} delay={(i % 3) * 60}>
                 <figure style={{ margin: 0 }}>
                   <div style={{ position: "relative", overflow: "hidden", marginBottom: 18 }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -22,13 +22,33 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Elevated Wireless — Premium cellular. Direct access.",
+  title: "Elevated Wireless | Premium cellular. Direct access.",
   description:
     "Premium wireless on Verizon 5G, plus direct access to operators, AI advisors, curated perks, and a room full of people worth knowing. Built to be run. Built to be licensed.",
+  metadataBase: new URL("https://getelevatedwireless.com"),
   openGraph: {
     title: "Elevated Wireless",
     description: "Premium cellular. Direct access.",
     type: "website",
+    url: "https://getelevatedwireless.com",
+    siteName: "Elevated Wireless",
+    // Declared explicitly. With no og:image, iMessage and Slack scrape the page
+    // and pick an image themselves, which is how the golf photo ended up as the
+    // link preview.
+    images: [
+      {
+        url: "/img/og-elevated-wireless.png",
+        width: 1200,
+        height: 630,
+        alt: "Elevated Wireless. Premium cellular. Direct access.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Elevated Wireless",
+    description: "Premium cellular. Direct access.",
+    images: ["/img/og-elevated-wireless.png"],
   },
 };
 
