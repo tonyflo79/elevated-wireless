@@ -6,11 +6,13 @@ import { Platform } from "@/components/Platform";
 import { TwoPaths } from "@/components/TwoPaths";
 import { Footer } from "@/components/Footer";
 
-export default function Home() {
+// Preview-only route. Identical to the homepage except the hero variant, so
+// Joe can compare A and B on the same page. Delete once he has picked.
+export default function HeroBPreview() {
   return (
     <>
       <Nav />
-      <Hero />
+      <Hero variant="band" />
       <Category />
       <Access />
       <Platform />

@@ -1,21 +1,39 @@
 "use client";
 
 import { tokens as t } from "@/lib/tokens";
-import { Label, Wordmark } from "./primitives";
+import { Eyebrow, Label, Wordmark } from "./primitives";
+import { LINKS, resolveHref, type NavLink } from "./Nav";
+import { usePathname } from "next/navigation";
 
-const COLS = [
-  { h: "Company", items: ["Access", "Platform", "Partner", "Team", "Contact"] },
-  { h: "For", items: ["Brands", "Investors", "Press"] },
+type FooterItem = NavLink;
+
+const COLS: { h: string; items: FooterItem[] }[] = [
+  // Mirrors the nav exactly, so the two can never drift apart.
+  { h: "Company", items: LINKS },
+  {
+    h: "For",
+    items: [
+      { label: "Brands", href: "mailto:partnerships@getelevatedwireless.com?subject=Brand%20Enquiry" },
+      { label: "Press", href: "mailto:press@getelevatedwireless.com?subject=Press%20Enquiry" },
+    ],
+  },
   {
     h: "Contact",
     items: [
-      "partnerships@getelevatedwireless.com",
-      "invest@getelevatedwireless.com",
+      {
+        label: "partnerships@getelevatedwireless.com",
+        href: "mailto:partnerships@getelevatedwireless.com",
+      },
+      {
+        label: "invest@getelevatedwireless.com",
+        href: "mailto:invest@getelevatedwireless.com",
+      },
     ],
   },
 ];
 
 export function Footer() {
+  const pathname = usePathname();
   return (
     <footer
       id="contact"
@@ -58,37 +76,40 @@ export function Footer() {
                 }}
               >
                 {col.items.map((x) => (
-                  <span key={x} style={{ opacity: 0.78 }}>
-                    {x}
-                  </span>
+                  <a
+                    key={x.label}
+                    href={resolveHref(x, pathname)}
+                    className="ew-footer-link"
+                    style={{ opacity: 0.78 }}
+                  >
+                    {x.label}
+                  </a>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
+        {/* The deck's bottom rail: hairline, tracked mono caption left, mark
+            right. Replaces the italic disclaimer line. */}
         <div
           style={{
-            paddingTop: 24,
+            paddingTop: 22,
             borderTop: `1px solid ${t.line}`,
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             gap: 20,
-            fontSize: 11.5,
-            letterSpacing: "0.08em",
-            opacity: 0.6,
             flexWrap: "wrap",
           }}
         >
-          <div>© 2026 Elevated Wireless Inc. · Delaware C-Corp</div>
-          <div style={{ fontStyle: "italic", opacity: 0.85 }}>
-            Cellular service provided on the Verizon 5G network.
-          </div>
-          <div style={{ display: "flex", gap: 18 }}>
-            <span>Privacy</span>
-            <span>Terms</span>
-          </div>
+          <Eyebrow>
+            © 2026 Elevated Wireless Inc. · Delaware C-Corp · Cellular service on
+            the Verizon 5G network
+          </Eyebrow>
+          <Eyebrow>EW · MMXXVI</Eyebrow>
+          {/* Privacy and Terms removed until real documents exist. A link that
+              goes nowhere implies a policy that does not. See D19. */}
         </div>
       </div>
     </footer>

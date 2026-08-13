@@ -241,9 +241,9 @@ export function RevenueCalculator({
                   letterSpacing: "0.14em",
                   fontWeight: 600,
                   cursor: "pointer",
-                  background: active ? t.navy : "transparent",
+                  background: active ? t.base : "transparent",
                   color: active ? t.paper : t.ink,
-                  border: `1px solid ${active ? t.navy : t.line}`,
+                  border: `1px solid ${active ? t.base : t.line}`,
                 }}
               >
                 {fmtConv(c)}
@@ -307,7 +307,7 @@ export function RevenueCalculator({
           letterSpacing: "0.22em",
           textTransform: "uppercase",
           fontWeight: 600,
-          color: t.navy,
+          color: t.base,
           borderBottom: `1px solid ${t.metal}`,
           paddingBottom: 4,
         }}

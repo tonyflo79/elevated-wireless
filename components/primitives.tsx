@@ -124,8 +124,8 @@ export function DuotonePhoto({
   src,
   alt = "",
   ratio = "16 / 9",
-  shadow = "#0A1628",
-  highlight = "#E8EBEF",
+  shadow = "#000000",
+  highlight = "#F6F6F6",
   midtone,
   intensity = 0.78,
   focalPoint = "center center",
@@ -211,6 +211,339 @@ export function DuotonePhoto({
         }}
       />
     </div>
+  );
+}
+
+// ————————————————————————————————————————————————
+// DECK SYSTEM
+// Lifted from the Orioles partnership deck. Four moves carry it:
+//   1. tracked uppercase eyebrows above every block
+//   2. mixed weight inside one headline (light + bold)
+//   3. accent used as a FIELD, not a hairline
+//   4. persistent chrome — section rails top, spine at the left edge
+// ————————————————————————————————————————————————
+
+// Eyebrow — the tiny tracked uppercase label that sits above every block in
+// the deck. The single most repeated move in it.
+export function Eyebrow({
+  children,
+  color,
+  onDark = false,
+  style,
+}: {
+  children: ReactNode;
+  color?: string;
+  onDark?: boolean;
+  style?: CSSProperties;
+}) {
+  return (
+    <div
+      style={{
+        fontFamily: t.mono,
+        fontSize: 10,
+        fontWeight: 500,
+        letterSpacing: "0.26em",
+        textTransform: "uppercase",
+        color: color || (onDark ? t.metalBright : t.metal),
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Em — bold (and optionally accent) run inside a display headline. The deck
+// switches weight mid-sentence constantly: "Customers" light / "save" bold.
+export function Em({
+  children,
+  color,
+  weight = 700,
+}: {
+  children: ReactNode;
+  color?: string;
+  weight?: number;
+}) {
+  return <span style={{ fontWeight: weight, color }}>{children}</span>;
+}
+
+// Knockout — filled block sitting inline behind a headline word.
+// Hero slide: "Oriole" in an accent box, "way." in a black box.
+export function Knockout({
+  children,
+  bg = t.accent,
+  fg = t.paper,
+  style,
+}: {
+  children: ReactNode;
+  bg?: string;
+  fg?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <span
+      style={{
+        background: bg,
+        color: fg,
+        display: "inline-block",
+        padding: "0.02em 0.14em 0.1em",
+        fontWeight: 700,
+        ...style,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+// SectionRail — per-section chrome. On the deck this is per-slide: label left,
+// counter right, hairline under. Maps slides to sections one-for-one.
+export function SectionRail({
+  label,
+  index,
+  onDark = false,
+  style,
+}: {
+  label: ReactNode;
+  index?: string;
+  onDark?: boolean;
+  style?: CSSProperties;
+}) {
+  const line = onDark ? t.metal : t.line;
+  return (
+    <div style={{ marginBottom: 64, ...style }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 24,
+          paddingBottom: 12,
+        }}
+      >
+        <Eyebrow onDark={onDark} color={t.accent}>
+          {label}
+        </Eyebrow>
+        {index && <Eyebrow onDark={onDark}>{index}</Eyebrow>}
+      </div>
+      <Rule color={line} opacity={onDark ? 0.55 : 1} />
+    </div>
+  );
+}
+
+// Spine — the thin accent stripe running down the far left edge of the deck's
+// interior slides. Parent must be position:relative.
+export function Spine({ width = 6 }: { width?: number }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="ew-spine"
+      style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        bottom: 0,
+        width,
+        background: t.accent,
+      }}
+    />
+  );
+}
+
+// Stat — eyebrow, enormous numeral, hairline, body. `filled` turns the whole
+// block into an accent field, which is how the deck marks the winning column.
+export function Stat({
+  eyebrow,
+  value,
+  suffix,
+  body,
+  note,
+  filled = false,
+  onDark = false,
+  size = "md",
+}: {
+  eyebrow?: ReactNode;
+  value: ReactNode;
+  suffix?: ReactNode;
+  body?: ReactNode;
+  note?: ReactNode;
+  filled?: boolean;
+  onDark?: boolean;
+  size?: "md" | "lg";
+}) {
+  const light = filled || onDark;
+  const fg = light ? t.paper : t.ink;
+  const fontSize =
+    size === "lg" ? "clamp(64px, 8.6vw, 132px)" : "clamp(44px, 5.4vw, 86px)";
+
+  return (
+    <div
+      style={{
+        background: filled ? t.accent : "transparent",
+        color: fg,
+        padding: filled ? "28px 28px 32px" : "0 0 4px",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      {eyebrow && (
+        <Eyebrow
+          color={filled ? "rgba(255,255,255,0.75)" : undefined}
+          onDark={onDark}
+          style={{ marginBottom: 18 }}
+        >
+          {eyebrow}
+        </Eyebrow>
+      )}
+      <div
+        style={{
+          fontFamily: t.sansDisplay,
+          fontSize,
+          fontWeight: 700,
+          lineHeight: 0.92,
+          letterSpacing: "-0.04em",
+          display: "flex",
+          alignItems: "baseline",
+          gap: 2,
+        }}
+      >
+        {value}
+        {suffix && (
+          <span
+            style={{
+              fontSize: "0.34em",
+              fontWeight: 400,
+              letterSpacing: "-0.02em",
+              opacity: 0.65,
+            }}
+          >
+            {suffix}
+          </span>
+        )}
+      </div>
+      {body && (
+        <>
+          <Rule
+            color={filled ? "rgba(255,255,255,0.45)" : light ? t.metal : t.line}
+            opacity={1}
+            style={{ margin: "26px 0 18px" }}
+          />
+          <div
+            style={{
+              fontFamily: t.sans,
+              fontSize: 15,
+              lineHeight: 1.55,
+              opacity: filled ? 0.95 : 0.82,
+            }}
+          >
+            {body}
+          </div>
+        </>
+      )}
+      {note && (
+        <Eyebrow
+          color={filled ? "rgba(255,255,255,0.7)" : undefined}
+          onDark={onDark}
+          style={{ marginTop: "auto", paddingTop: 22 }}
+        >
+          {note}
+        </Eyebrow>
+      )}
+    </div>
+  );
+}
+
+// Panel — the dark supporting-copy block the deck sets beside a light headline.
+export function Panel({
+  eyebrow,
+  children,
+  style,
+}: {
+  eyebrow?: ReactNode;
+  children: ReactNode;
+  style?: CSSProperties;
+}) {
+  return (
+    <div
+      style={{
+        background: t.baseMid,
+        color: t.paper,
+        padding: "32px 34px 36px",
+        ...style,
+      }}
+    >
+      {eyebrow && <Eyebrow onDark style={{ marginBottom: 18 }}>{eyebrow}</Eyebrow>}
+      <div style={{ fontSize: 16, lineHeight: 1.62, opacity: 0.9 }}>{children}</div>
+    </div>
+  );
+}
+
+// AccentBar — the full-bleed accent CTA strip that closes the deck.
+export function AccentBar({
+  eyebrow,
+  headline,
+  href,
+  linkLabel,
+}: {
+  eyebrow?: ReactNode;
+  headline: ReactNode;
+  href: string;
+  linkLabel: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="ew-accent-bar"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 32,
+        background: t.accent,
+        color: t.paper,
+        padding: "26px 32px",
+        flexWrap: "wrap",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <EWMark size={38} ring={t.paper} ink={t.paper} />
+        <div>
+          {eyebrow && (
+            <Eyebrow color="rgba(255,255,255,0.75)" style={{ marginBottom: 7 }}>
+              {eyebrow}
+            </Eyebrow>
+          )}
+          <div
+            style={{
+              fontFamily: t.sansDisplay,
+              fontSize: "clamp(19px, 2vw, 24px)",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+            }}
+          >
+            {headline}
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          fontFamily: t.mono,
+          fontSize: 12,
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          borderBottom: "1px solid rgba(255,255,255,0.6)",
+          paddingBottom: 3,
+        }}
+      >
+        {linkLabel}
+        <span aria-hidden="true">&rarr;</span>
+      </div>
+    </a>
   );
 }
 
