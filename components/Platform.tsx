@@ -1,7 +1,7 @@
 "use client";
 
 import { tokens as t } from "@/lib/tokens";
-import { DuotonePhoto, Reveal } from "./primitives";
+import { DuotonePhoto, Em, Eyebrow, Reveal, SectionRail } from "./primitives";
 
 // ————————————————————————————————————————————————
 // 6a — NetworkDiagram
@@ -223,7 +223,7 @@ type Row = {
 
 const ROWS: Row[] = [
   {
-    label: "6a · Network + Operations",
+    label: "Network + Operations",
     title: "Verizon 5G, end-to-end.",
     body: "Connectivity via our MVNO partnership. SIM provisioning, device activation, billing, customer support, regulatory compliance, carrier reporting. All handled.",
     bullets: [
@@ -235,7 +235,7 @@ const ROWS: Row[] = [
     diagram: "network",
   },
   {
-    label: "6b · Data + Intelligence",
+    label: "Data + Intelligence",
     title: "Descriptive to prescriptive.",
     body: "Purpose-built analytics across every layer of the business. We don't just run the wireless; we learn from it.",
     bullets: [
@@ -246,7 +246,7 @@ const ROWS: Row[] = [
     ],
   },
   {
-    label: "6c · Marketplace",
+    label: "Marketplace",
     title: "And the extras that make members stay",
     body: "On top of the service itself, every brand can switch on a curated marketplace of partner perks, experiences, and expert access for its subscribers. It's not the pitch. It's the retention layer. Your members get more than a signal; you get subscribers who stay.",
     bullets: [
@@ -263,12 +263,15 @@ const ROWS: Row[] = [
 function RowContent({ r }: { r: Row }) {
   return (
     <div>
+      {/* r.label was defined on every row but never rendered. It is the deck's
+          eyebrow, so it goes above the heading. */}
+      <Eyebrow style={{ marginBottom: 18 }}>{r.label}</Eyebrow>
       <h3
         style={{
           fontFamily: t.sansDisplay,
           fontSize: "clamp(32px, 3.6vw, 44px)",
-          fontWeight: 500,
-          letterSpacing: "-0.02em",
+          fontWeight: 700,
+          letterSpacing: "-0.025em",
           lineHeight: 1.08,
           margin: "0 0 20px",
         }}
@@ -301,10 +304,11 @@ function RowContent({ r }: { r: Row }) {
           >
             <span
               style={{
-                color: t.metal,
+                color: t.accent,
                 flexShrink: 0,
                 fontFamily: t.mono,
                 fontSize: 11,
+                fontWeight: 700,
                 paddingTop: 3,
               }}
             >
@@ -348,18 +352,20 @@ export function Platform() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionRail label="03 · The Platform" index="03 / 04" />
         <div style={{ marginBottom: 80, maxWidth: 1100 }}>
           <h2
             style={{
               fontFamily: t.sansDisplay,
               fontSize: "clamp(40px, 5.2vw, 68px)",
-              lineHeight: 1.05,
-              fontWeight: 500,
+              lineHeight: 1.06,
+              fontWeight: 300,
               letterSpacing: "-0.025em",
               margin: 0,
             }}
           >
-            Everything a brand needs to become a carrier, and nothing they shouldn&apos;t have to touch.
+            Everything a brand needs to become a carrier,{" "}
+            <Em color={t.accent}>and nothing they shouldn&apos;t have to touch.</Em>
           </h2>
         </div>
 

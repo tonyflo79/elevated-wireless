@@ -21,9 +21,26 @@ body {
 a { color: inherit; text-decoration: none; }
 * { border-radius: 0 !important; }
 
-/* Red is an accent only: hover and active states, never a field of colour. */
+/* Red carries weight. It fills fields, stat blocks and CTA bars, not just
+   hover states. Black and white are the ground it sits on. */
 .ew-nav a:hover,
-.ew-footer-link:hover { color: #EE001E; opacity: 1; }
+.ew-footer-link:hover { color: #CD040B; opacity: 1; }
+
+/* Accent CTA bar: lifts slightly on hover, no colour change (it is already
+   a full field of red). */
+.ew-accent-bar { transition: transform 400ms cubic-bezier(.2,.7,.2,1), box-shadow 400ms ease; }
+.ew-accent-bar:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(205, 4, 11, 0.30); }
+
+/* Deck stat rows: hairline-divided columns, collapsing on narrow viewports. */
+.ew-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.ew-stat-row > * { padding-left: 32px; border-left: 1px solid #D8DADA; }
+.ew-stat-row > *:first-child { padding-left: 0; border-left: none; }
+.ew-stat-row.on-dark > * { border-left-color: #6F7171; }
+/* A filled cell provides its own padding and must not inherit the divider. */
+.ew-stat-row > .is-filled { padding-left: 0; border-left: none; }
+
+/* The 50/50 accent-vs-dark split from slide 2. */
+.ew-split { display: grid; grid-template-columns: 1fr 1fr; }
 
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.2,1); }
@@ -32,7 +49,7 @@ a { color: inherit; text-decoration: none; }
 /* Revenue calculator: hairline range sliders, square black thumb */
 .ew-range { appearance: none; -webkit-appearance: none; width: 100%; height: 22px; margin: 0; padding: 0; background: transparent; cursor: pointer; }
 .ew-range:focus { outline: none; }
-.ew-range:focus-visible { outline: 2px solid #EE001E; outline-offset: 4px; }
+.ew-range:focus-visible { outline: 2px solid #CD040B; outline-offset: 4px; }
 .ew-range::-webkit-slider-runnable-track { height: 2px; background: #D8DADA; }
 .ew-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; margin-top: -7px; background: #000000; }
 .ew-range::-moz-range-track { height: 2px; background: #D8DADA; }
@@ -71,6 +88,22 @@ a { color: inherit; text-decoration: none; }
   .ew-stack-md { grid-template-columns: 1fr !important; }
   .ew-pad-md { padding-left: 24px !important; padding-right: 24px !important; }
   .ew-hero-rail { display: none !important; }
+
+  /* Stat columns stack; dividers move from left edge to top edge. */
+  .ew-stat-row { grid-template-columns: 1fr; }
+  .ew-stat-row > * { padding-left: 0; border-left: none; padding-top: 32px; border-top: 1px solid #D8DADA; }
+  .ew-stat-row > *:first-child { padding-top: 0; border-top: none; }
+  .ew-stat-row.on-dark > * { border-top-color: #6F7171; }
+  .ew-stat-row > .is-filled { padding-top: 0; border-top: none; }
+
+  .ew-split { grid-template-columns: 1fr; }
+  .ew-spine { width: 4px !important; }
+
+  /* The nav link row was a fixed flex row that never wrapped, so on a phone it
+     pushed the document ~450px wider than the viewport and the whole page
+     scrolled sideways. Wrap it and let the bar stack. */
+  .ew-nav { flex-wrap: wrap; gap: 14px 0; justify-content: center; }
+  .ew-nav-links { flex-wrap: wrap; justify-content: center; gap: 10px 18px !important; font-size: 11px !important; letter-spacing: 0.12em !important; }
 }
 
 /* Keep the hero diagram clear of the headline on mid-width viewports */

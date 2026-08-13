@@ -43,6 +43,9 @@ export function Nav() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "22px 56px",
+        // Persistent accent chrome at the top of the viewport, the web
+        // equivalent of the spine running down the deck's slides.
+        borderTop: `3px solid ${t.accent}`,
         borderBottom: `1px solid ${t.line}`,
         background: "rgba(255, 255, 255, 0.86)",
         color: t.ink,
@@ -57,6 +60,7 @@ export function Nav() {
         <Wordmark color={t.ink} withMark markRing={t.ink} size={13} />
       </a>
       <div
+        className="ew-nav-links"
         style={{
           display: "flex",
           gap: 32,
@@ -79,11 +83,13 @@ export function Nav() {
       <a
         href="mailto:partnerships@getelevatedwireless.com"
         style={{
-          padding: "10px 18px",
-          border: `1px solid ${t.ink}`,
-          color: t.ink,
+          padding: "11px 20px",
+          background: t.accent,
+          border: `1px solid ${t.accent}`,
+          color: t.paper,
           fontFamily: t.mono,
           fontSize: 11,
+          fontWeight: 600,
           letterSpacing: "0.2em",
           textTransform: "uppercase",
         }}

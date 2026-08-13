@@ -1,8 +1,13 @@
 // Verizon-aligned palette: black, white, red.
-// accent is #EE001E, sampled from verizon.com's production stylesheets
-// (the widely published #EE0000 does not appear in their CSS).
-// Red is an accent only: CTAs, active states, rules, small highlights.
-// Black and white carry the design.
+// accent is #CD040B — a deeper red than Verizon's own #EE001E, which read too
+// hot once the colour started carrying whole fields rather than hairlines.
+//
+// Red is a FIELD, not a highlight. It fills half-panels, the winning stat
+// block, and the closing CTA bar, exactly as the partner decks use garnet and
+// orange. Black and white are the ground it sits on.
+//
+// This is the one value a partner skin changes: swap accent and the whole
+// system reskins (Orioles orange, South Carolina garnet, and so on).
 export const tokens = {
   base: "#000000",
   baseMid: "#1B1D1F",
@@ -12,7 +17,7 @@ export const tokens = {
   line: "#D8DADA",
   metal: "#6F7171",
   metalBright: "#A7A7A7",
-  accent: "#EE001E",
+  accent: "#CD040B",
   sansDisplay:
     "var(--font-display), 'Helvetica Neue', Helvetica, Arial, sans-serif",
   sans: "var(--font-sans), 'Helvetica Neue', Helvetica, Arial, sans-serif",

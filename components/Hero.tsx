@@ -2,7 +2,7 @@
 
 import { CSSProperties } from "react";
 import { tokens as t } from "@/lib/tokens";
-import { Reveal } from "./primitives";
+import { Eyebrow, Knockout, Reveal, Spine } from "./primitives";
 import { RevenueCalculator } from "./RevenueCalculator";
 
 function RoyaltyPhrase() {
@@ -36,24 +36,33 @@ export function Hero() {
         minHeight: 720,
       }}
     >
+      <Spine />
       <Reveal>
         {/* Option B: the calculator is the centrepiece. Condensed headline and a
             single line of copy above it, one CTA below. */}
         <div style={{ maxWidth: 1240, margin: "0 auto" }}>
           <div className="ew-hero-center">
             <div className="ew-hero-copy">
+          <Eyebrow onDark>Powered by Verizon 5G</Eyebrow>
+          {/* Deck hero treatment: filled blocks sitting inline in the sentence.
+              On the deck these are accent + black over a photo; on solid black
+              the second block goes white so both still read as fills. */}
           <h1
             style={{
               fontFamily: t.sansDisplay,
               fontSize: "clamp(40px, 4.6vw, 68px)",
-              lineHeight: 1.02,
+              lineHeight: 1.16,
               fontWeight: 500,
               letterSpacing: "-0.03em",
               margin: 0,
               textWrap: "balance",
             } as CSSProperties}
           >
-            Be the phone company for the people who love you.
+            Be the phone company for the people who{" "}
+            <Knockout>love</Knockout>
+            <Knockout bg={t.paper} fg={t.ink}>
+              you.
+            </Knockout>
           </h1>
           <p
             style={{
