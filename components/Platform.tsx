@@ -255,7 +255,7 @@ const ROWS: Row[] = [
       "Audience stays yours, no cross-carrier sharing or list commingling",
       "Switched on per brand, a retention layer rather than the pitch",
     ],
-    img: "editorial · member perks",
+    img: "Fans in team colours celebrating together in a packed stadium crowd",
     src: "/img/platform-6c.jpg",
   },
 ];
