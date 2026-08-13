@@ -112,3 +112,36 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 1200px) {
   .ew-hero-rail { opacity: 0.5; }
 }
+
+/* ————————————————————————————————————————————————
+   Print / PDF
+   Scroll reveals are driven by IntersectionObserver, which never fires for
+   off-screen content when printing, so every section below the fold would
+   export blank. Force them visible and keep the accent fields from being
+   stripped by the browser's default "no background graphics" behaviour.
+   ———————————————————————————————————————————————— */
+@media print {
+  /* A default Letter page is 816px wide, which trips the 900px mobile
+     breakpoint and exports the phone layout. Force a desktop-width page so the
+     PDF shows what a visitor on a laptop actually sees. */
+  @page { size: 1400px 1980px; margin: 0; }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .ew-num-shimmer { animation: none !important; background-image: none !important; -webkit-text-fill-color: currentColor !important; }
+
+  /* Sticky nav would otherwise repeat on top of every page. */
+  .ew-nav { position: static !important; backdrop-filter: none !important; background: #FFFFFF !important; }
+
+  /* Only guard elements small enough to fit on one page. Applying this to
+     `section` pushed each full-height section onto its own sheet and left
+     several pages almost entirely blank. */
+  .ew-stat-row > *, .ew-accent-bar, .ew-calc-card { break-inside: avoid; page-break-inside: avoid; }
+
+  /* Hover lift is meaningless on paper and casts a stray shadow. */
+  .ew-accent-bar { transform: none !important; box-shadow: none !important; }
+}
